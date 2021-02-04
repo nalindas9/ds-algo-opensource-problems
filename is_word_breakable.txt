@@ -1,0 +1,68 @@
+Question:
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+
+Note:
+
+The same word in the dictionary may be reused multiple times in the segmentation.
+You may assume the dictionary does not contain duplicate words.
+Example 1:
+
+Input: s = "leetcode", wordDict = ["leet", "code"]
+Output: true
+Explanation: Return true because "leetcode" can be segmented as "leet code".
+
+Example 3:
+
+Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+Output: false
+
+Solution:
+/*
+Input: s = "leetcode", wordDict = ["leet", "code"]
+Output: true
+
+Input: s = "applepenapple", wordDict = ["apple", "pen"]
+Output: true
+
+Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+Output: false
+
+Approach 1:
+1. Iterate through the string.
+2. word = "". Add chars to word variable.
+3. At each iteration, we check if word is available in hashmap
+4. If word is available, word becomes = "". else if word not available, we return false.
+5. Repeat same process again untill you reach end of string. 
+
+Time - O(n) n-no of chars in string
+Space - O(1) No extra space
+
+*/
+#include <iostream>
+#include <unordered_map>
+
+bool wordBreak(std::string s, std::unordered_map<string, string> hashmap) {
+	// Initialize word variable
+	std::string word = "";
+	// Iterate through the string	
+	for (char letter:s) {
+		word += letter;
+		if (hashmap.count(word) == 1)
+			word = "";
+	}
+	if (word.size() == 0)
+		return true;
+	return false;
+}
+
+int main() {
+	std::string s = "catsandog";
+	std::unordered_map<std::string, std::string> hashmap = {{"cats", "cats"}, 
+                                                            {"dog", "dog"}, 
+                                                            {"sand", "sand"},
+                                                            {"and", "and"},
+                                                            {"cat", "cat"}};
+	bool word_break = wordBreak(s, hashmap);
+	std::cout << "Is word breakable: " << word_break << std::endl; 
+	return 0;
+}
