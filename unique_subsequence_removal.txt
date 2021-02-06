@@ -1,0 +1,62 @@
+Question:
+Given an array arr[] containing N elements, the task is to remove a subarray of minimum possible length from the given array such that all remaining elements are pairwise distinct. Print the minimum possible length of the subarray.
+Examples:
+
+Input: N = 5, arr[] = {1, 2, 1, 2, 3} 
+Output: 2 
+Explanation: 
+Remove the sub array {2, 1} to make the elements distinct. 
+
+Input: N = 5, arr[] = {1, 2, 3, 4, 5} 
+Output: 0 
+Explanation: 
+Elements are already distinct.
+
+Solution:
+/*
+arr[] = {1, 2, 1, 2, 3}
+N = 5
+
+subarrray_length = 2
+o/p = 2
+
+arr[] = {1, 2, 3, 4, 5} 
+N = 5
+
+subarrray_length = 0
+o/p - 0
+
+Approach 1:
+1. Use a hashmap
+2. Iterate through array. If element not in hashmap, store it else increment subarray_length
+3. Return subsequence length.
+
+Time - O(n)
+Space - O(n)
+*/
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+int subsequenceRemoval(const std::vector<int>& arr, int N) {
+	// Subsequence length variable
+	int subsequence_length = 0;
+	// Hashmap
+	std::unordered_map<int, int> hashmap({});
+	// Iterate through the array
+	for (int element:arr) {
+		if (hashmap.count(element) == 0)
+			hashmap.insert({element, element});
+		else
+			subsequence_length++;
+	}
+	return subsequence_length;
+}
+
+int main() {
+	std::vector<int> arr = {1, 2, 3, 2, 5};
+	int N = 5;
+	int subsequence_length = subsequenceRemoval(arr, N);
+	std::cout << "Subsequence length: " << subsequence_length << std::endl;
+	return 0;
+}
