@@ -1,0 +1,73 @@
+Question:
+Given a binary tree, find its minimum depth.
+
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+Note: A leaf is a node with no children.
+
+Input: root = [3,9,20,null,null,15,7]
+Output: 2
+Example 2:
+
+Input: root = [2,null,3,null,4,null,5,null,6]
+Output: 5
+
+Solution:
+    int minDepth(TreeNode* root) {
+        // Handle edge cases
+        if (root == nullptr)
+            return 0;
+        if (root->left == nullptr && root->right == nullptr)
+            return 1;
+        // Stack
+        std::stack<TreeNode*> stack;
+        // Push root node into stack
+        stack.push(root);
+        // Variable to store depths;
+        int minimum_depth = 0, depth = 0;
+        // Visited hashmap
+        std::unordered_map<TreeNode*, bool> visited({});
+        // Left added and right added variables
+        bool left_added = false, right_added = false;
+        // Start DFS
+        while (!stack.empty()) {
+            // Check if leaf node
+            if (root->left == nullptr && root->right == nullptr) {
+                if (depth == 0) {
+                    depth = stack.size();
+                    minimum_depth = depth;
+                }
+                depth = stack.size();
+                if (depth <= minimum_depth)
+                    minimum_depth = depth;
+            }
+            // Add the left and right node if not visited
+            if (root->left != nullptr && visited.count(root->left) == 0) {
+                stack.push(root->left);
+                left_added = true;
+            }
+            if (root->right != nullptr && visited.count(root->right) == 0) {
+                stack.push(root->right);
+                right_added = true;
+            }
+            // Pop stack only if both left and right node added     
+            //std::cout << "left_added: " << left_added << "right_added: " << right_added << std::endl;
+            if ((left_added && right_added) || (!left_added && !right_added)) {
+                //std::cout << "Popped!" << std::endl;
+                stack.pop();
+            }
+            // Reset left added and right added
+            left_added = false;
+            right_added = false;
+
+            if (!stack.empty()) {
+                // Top element of stack becomes root
+                root = stack.top();
+                std::cout << "Visited root: " << root->val << std::endl;
+                // Mark root as visited
+                if (visited.count(root) == 0)
+                    visited.insert({root, true});
+            }
+        }
+        return minimum_depth;
+    }
