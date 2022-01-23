@@ -1,0 +1,66 @@
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        Example 1:
+
+        Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+        Output: [1,2,2,3,5,6]
+
+        Example 2:
+
+        Input: nums1 = [1], m = 1, nums2 = [], n = 0
+        Output: [1]
+
+        Example 3:
+
+        Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+        Output: [1]
+
+        Constraints:
+
+        nums1.length == m + n
+        nums2.length == n
+        0 <= m, n <= 200
+        1 <= m + n <= 200
+        -109 <= nums1[i], nums2[j] <= 109
+
+        Question:
+        1. Are the elements distinct in each array? - Assuming yes
+
+        Approach 1:
+        1. [1,2,3,2,5,6] [2,5,6]
+        Sort the above array. [1,2,2,3,5,6]
+        
+        Time - O((m+n)*log(m+n))
+        Space - O(n) - sorting takes up O(n)
+        
+        Approach 2:
+        1. Two Pointer Approach
+        1. [1,2,3,0,0,0] + [2,5,6] = [1,2,2,3,5,6]
+                  
+        [1,2,3] [2,5,6]
+             L       R 
+        
+        [1,2,2,3,5,6]
+        
+        TIme - O(n+m) 
+        Space - O(m)
+        """
+        # ----- Approach 1 -----
+        # for idx, num in enumerate(nums2):
+        #     nums1[m+idx] = num
+        # nums1.sort()
+        
+        # ----- Approach 2 -----
+        left, right = 0, 0
+        # Create a copy of first m elements in nums1
+        nums1_copy = nums1[:m]
+        for i in range(len(nums1)):
+            print('left:{}, right:{}'.format(left, right))
+            if (right >= n) or ((left < len(nums1_copy)) and (nums1_copy[left] <= nums2[right])):
+                nums1[i] = nums1_copy[left]
+                left += 1
+            else:
+                nums1[i] = nums2[right]
+                right += 1
