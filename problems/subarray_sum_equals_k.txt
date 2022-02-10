@@ -1,0 +1,78 @@
+import numpy as np
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        """
+        Input: nums = [1,1,1], k = 2
+        Output: 2
+        
+        Input: nums = [1,2,3], k = 3
+        Output: 2
+        
+        Approach 1:
+        1. Find all subarrays
+        2. Filter subarrays with sum = k and increment count
+        
+        Time - O(n^3)
+        
+        Approach 2:
+        1. Use precalculated sum and add to hashmap
+        
+        Time - O(n^2)
+        
+        subarray_count = 0
+        [1,2,3]
+         ^   ^
+         
+        {(0, 0) : 1,
+         (0, 1) : }
+         
+         sum = hashmap((i, j-1)) + (j)
+         
+        Approach 3:
+        1. [1,2,3] k = 3
+                ^
+        [1, 2, 3, 4, 5] k = 5
+                    ^   
+        [1, -1, 0] k = 0
+                ^
+                   
+        sum = 0
+        k = 0
+        sum - k = 0 - . Is there a contigouous subarrray starting from
+        1st index which has a sum in hashmap?
+        count = 2
+        hashmap = {0 : 2,
+                    }
+        
+        [0: 1, 1 : 1]
+        
+        [1] k = 0
+         ^
+        """
+        # Approach 2
+#         count = 0
+#         hashmap = dict()
+        
+#         for i in range(0, len(nums)):
+#             for j in range(i, len(nums)):
+#                 if (i, j) not in hashmap.keys():
+#                     sum = np.sum(nums[i:j+1])
+#                     hashmap[(i, j)] = sum
+#                 else:
+#                     sum = hashmap[(i, j-1)] + nums[j]
+#                 if sum == k:
+#                     count += 1
+        sum, count = 0, 0
+        hashmap = dict()
+        hashmap[0] = 1
+        # Iterate the array
+        for num in nums:
+            sum += num
+            if (sum - k) in hashmap.keys():
+                count += hashmap[sum - k]
+            if sum not in hashmap.keys():
+                hashmap[sum] = 1
+            else:
+                hashmap[sum] += 1
+        return count
