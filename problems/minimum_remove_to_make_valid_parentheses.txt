@@ -1,0 +1,113 @@
+Question:
+Given a string s of '(' , ')' and lowercase English characters.
+
+Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
+
+Formally, a parentheses string is valid if and only if:
+
+It is the empty string, contains only lowercase characters, or
+It can be written as AB (A concatenated with B), where A and B are valid strings, or
+It can be written as (A), where A is a valid string.
+
+Example 1:
+
+Input: s = "lee(t(c)o)de)"
+Output: "lee(t(c)o)de"
+Explanation: "lee(t(co)de)" , "lee(t(c)ode)" would also be accepted.
+Example 2:
+
+Input: s = "a)b(c)d"
+Output: "ab(c)d"
+Example 3:
+
+Input: s = "))(("
+Output: ""
+Explanation: An empty string is also valid.
+ 
+
+Constraints:
+
+1 <= s.length <= 105
+s[i] is either'(' , ')', or lowercase English letter.
+
+
+Solution:
+
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        """
+        Input: s = "lee(t(c)o)de)"
+        Output: "lee(t(c)o)de"
+        
+        Input: s = "a)b(c)d"
+        Output: "ab(c)d"
+        
+        Input: s = "))(("
+        Output: ""
+        
+        Approach 1:
+        1. lee(t(c)o)de)
+                       ^
+        
+        2. a)b(c)d
+                
+                
+        3. ((ab
+           
+        Everytime we remove, reset couimt to 0
+        count = +2
+        
+        Approach 2:
+        1. Two pointer approach
+        
+        lee(t(c)o)de)
+              
+        
+        balance = 0
+        
+        
+        if left or right get opposite paranthesis,
+        -1 from left or right and then make it zero
+        a)b(c)d
+          
+        balance = 1
+        
+        ((ab)
+        
+        hashmap {( : [indices]}
+        
+        Approach 3:
+        1. Use a stack
+        "lee(t(c)o)de)"
+                     ^
+        
+        idx = [0, 1] -> remove this
+        stack = [2, 3]
+        
+        ()()(((
+            ^
+        """
+        stack = list()
+        idx = 0
+        
+        while idx <= (len(s) - 1):
+            char = s[idx]
+            if char == '(':
+                stack.append(idx)
+            if char == ')':
+                if not stack:
+                    s = s[:idx] + s[idx+1:]
+                    idx -= 1
+                else:
+                    stack.pop()
+            idx += 1
+
+        if stack:
+            s_list = list(s)
+            i = 0
+            while i <= (len(stack) - 1):
+                idx = stack[i] - i
+                s = s[:idx] + s[idx+1:]
+                i += 1
+                
+        return s
