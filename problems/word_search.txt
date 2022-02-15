@@ -1,0 +1,75 @@
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        """
+        Input: board = [["A","B","C","E"],
+                        ["S","F","C","S"],
+                        ["A","D","E","E"]], word = "ABCCED"
+        Output: true
+        
+        Input: board = [["A","B","C","E"],
+                        ["S","F","C","S"],
+                        ["A","D","E","E"]], word = "SEE"
+        Output: true
+        
+        Input: board = [["A","B","C","E"],
+                        ["S","F","C","S"],
+                        ["A","D","E","E"]], word = "ABCB"
+        Output: false
+        
+        Approach 1:
+        1. Do a dfs. Maintain a parent hashmap {c : {c, f, s, d}}
+        2. Backtrack to find word. 
+        
+        Time - O((m*n)^2)
+        Space - O(m*n)
+        
+        Approach 2:
+        1. Iterate board. For each element, store its parents in hashmap
+        {A : [B, S],
+         B : [A, F, C],
+         }
+        2. Backtrack from the words last letter
+        
+        Time - O(m*n)
+        Space - O(m*n)
+        
+        Approach 3:
+        1. Run recursive dfs.
+        2. Maintain an index for each letter in
+        word           i=2 
+        board = [["A","B","C","E"],
+                 ["S","F","C","S"],
+                 ["A","D","E","E"]]
+                 
+        Time - O((n*m*len(word)) # O(n*m) for board and O(len(word)) for dfs 
+        since our call stack would be max len of word
+        Space - O(n)
+        """
+        ROWS, COLS = len(board), len(board[0])
+        visited = set()
+        # Iterate the board
+        def dfs(x, y, idx):
+            if idx == len(word):
+                return True
+            
+            if (x < 0 or y < 0 or # Check if out of bounds
+                x >= ROWS or y >=COLS or # Check if out of bounds
+                word[idx] != board[x][y] or # If we hit the wrong char
+                (x, y) in visited):
+                return False
+            
+            visited.add((x, y))
+            result = (dfs(x+1, y, idx+1) or
+                      dfs(x-1, y, idx+1) or
+                      dfs(x, y+1, idx+1) or
+                      dfs(x, y-1, idx+1))
+            visited.remove((x, y))
+            return result
+        # Iterate the board and run recursive dfs
+        found = False
+        for i in range(ROWS):
+            for j in range(COLS):
+                found = dfs(i, j, 0)
+                if found:
+                    return True
+        return False
