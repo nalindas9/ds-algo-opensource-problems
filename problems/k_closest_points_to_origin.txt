@@ -1,0 +1,69 @@
+Question:
+Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+
+The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+
+You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+
+Input: points = [[1,3],[-2,2]], k = 1
+Output: [[-2,2]]
+Explanation:
+The distance between (1, 3) and the origin is sqrt(10).
+The distance between (-2, 2) and the origin is sqrt(8).
+Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.
+We only want the closest k = 1 points from the origin, so the answer is just [[-2,2]].
+Example 2:
+
+Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+Output: [[3,3],[-2,4]]
+Explanation: The answer [[-2,4],[3,3]] would also be accepted.
+ 
+
+Constraints:
+
+1 <= k <= points.length <= 104
+-104 < xi, yi < 104
+
+Solution:
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        /*
+        Input: points = [[3,3],[5,-1],[-2,4]], k = 2
+        
+        Approach 1:
+        1. Iterate through the vector.
+        2. Store each points dist and append it to a a new vector
+        [(x, y, dist)]
+        3. Sort the array based on dist
+        4. Slice the array for first k points
+        
+        Time - O(nlogn)
+        Space - O(n)
+        */
+        std::vector<std::vector<float>> points_w_dist = {};
+        
+        for (auto point:points) {
+            float dist = std::sqrt(std::pow(point[0], 2) + std::pow(point[1], 2));
+            float x = (float)point[0];
+            float y = (float)point[1];
+            points_w_dist.push_back({dist, x, y});
+        }
+        
+        std::sort(points_w_dist.begin(), 
+                  points_w_dist.end(),
+                  [] (const std::vector<float> &a, std::vector<float> &b) {
+                      return a[0] < b[0];
+                  });
+
+        points_w_dist = std::vector<std::vector<float>>(points_w_dist.begin(), points_w_dist.begin() + k); 
+        
+        std:vector<std::vector<int>> result = {};
+        
+        for (int i=0; i < k; i++) {
+            std::cout << points_w_dist[i][1] << ' ' << points_w_dist[i][2] << std::endl;
+            result.push_back({(int)points_w_dist[i][1], (int)points_w_dist[i][2]});
+        }
+        return result;
+    }
+};
