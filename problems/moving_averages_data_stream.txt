@@ -1,0 +1,14 @@
+import numpy as np
+class MovingAverage:
+    def __init__(self, size: int):
+        self._size = size
+        self._data = []
+    def next(self, val: int) -> float:
+        self._data.append(val)
+        if len(self._data) <= self._size:
+            return np.sum(self._data)/len(self._data)
+        return np.sum(self._data[len(self._data)-self._size:])/self._size
+
+# Your MovingAverage object will be instantiated and called as such:
+# obj = MovingAverage(size)
+# param_1 = obj.next(val)
