@@ -1,2 +1,2 @@
 # ds-algo-opensource-problems
-Just a repo for some great DS ALGO problems and my solutions!
+Just a repo for some DS ALGO problems and my solutions!
