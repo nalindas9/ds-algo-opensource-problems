@@ -1,0 +1,54 @@
+/*
+We cannot use same element twice
+[3, 3] target = 6
+    ^
+{3}
+[0, 1]
+
+[2, 5, 5, 11] target = 10
+       ^
+{2, 5}
+
+[]
+
+[2, 5]
+    ^
+
+target - nums[i] != nums[i]
+
+{2, 5}
+
+Time - O(n)
+Space - O(n)
+*/
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // Initialize hashmap
+        std::unordered_map<int, int> hashmap = {};
+        // Initialize array to store indices
+        std::vector<int> indices = {};
+        // Append first element to hashmap
+        hashmap[nums[0]] = 0;
+        // Loop through the array
+        for (int i=1; i<nums.size(); i++) {
+            // Check if current element is not seen
+            if (hashmap.find(nums[i]) == hashmap.end()) {
+                // Store index value and current element as key
+                hashmap[nums[i]] = i;
+            }
+            // Now check if target - nums[i] exists in hashmap
+            // that is if we have seen the complementary element
+            // at least once
+            // and if target - nums[i] != nums[i] as it would be 
+            // as it would be same element twice which we don't want
+            if ((hashmap.find(target - nums[i]) != hashmap.end()) && (i != hashmap[target-nums[i]])) {
+                indices.push_back(hashmap[target-nums[i]]);
+                indices.push_back(i);
+            }
+        }
+        return indices;
+    }
+};
+
