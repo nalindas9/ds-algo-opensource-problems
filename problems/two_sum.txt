@@ -1,54 +1,92 @@
+Problem:
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Example 2:
+
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+Example 3:
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
+ 
+
+Constraints:
+
+2 <= nums.length <= 104
+-109 <= nums[i] <= 109
+-109 <= target <= 109
+Only one valid answer exists.
+ 
+
+Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
+
+Solution:
 /*
-We cannot use same element twice
-[3, 3] target = 6
-    ^
-{3}
-[0, 1]
+Approach 1:
 
-[2, 5, 5, 11] target = 10
+[2, 7, 11, 15]
+    ^
+Dict = {2:2, 7:7}
+output = [0, 1]
+Target = 9
+
+[3, 2, 4] target = 6
        ^
-{2, 5}
+Dict = {3:0, 2:1, 4:2}
+output = [1, 2]
 
-[]
+Edge cases - 
+1. nums < size 2 return []
 
-[2, 5]
-    ^
-
-target - nums[i] != nums[i]
-
-{2, 5}
-
-Time - O(n)
-Space - O(n)
+Time Complexity
+- O(n)
+Space Complexity 
+- O(n)
 */
+#include <unordered_map>
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        // Initialize hashmap
-        std::unordered_map<int, int> hashmap = {};
-        // Initialize array to store indices
+        // Define hashmap to store values
+        std::unordered_map<int, int> nums_map = {};
+        // Define vector to store indices
         std::vector<int> indices = {};
-        // Append first element to hashmap
-        hashmap[nums[0]] = 0;
-        // Loop through the array
-        for (int i=1; i<nums.size(); i++) {
-            // Check if current element is not seen
-            if (hashmap.find(nums[i]) == hashmap.end()) {
-                // Store index value and current element as key
-                hashmap[nums[i]] = i;
-            }
-            // Now check if target - nums[i] exists in hashmap
-            // that is if we have seen the complementary element
-            // at least once
-            // and if target - nums[i] != nums[i] as it would be 
-            // as it would be same element twice which we don't want
-            if ((hashmap.find(target - nums[i]) != hashmap.end()) && (i != hashmap[target-nums[i]])) {
-                indices.push_back(hashmap[target-nums[i]]);
-                indices.push_back(i);
+        // Add edge case
+        if (nums.size() < 2)
+            return indices;
+        // Iterate through the array
+        for (int i=0; i<nums.size(); i++) {
+            // If first element, add to hashmap
+            if (i == 0)
+                nums_map[nums[i]] = i;
+            else {
+                // Check if target - current element exists in hashmap
+                if (nums_map.count(target - nums[i]) == 1) {
+                    // If yes, then append the current and target - current 
+                    // elements indices to the indices vector
+                    indices.push_back(nums_map[target - nums[i]]);
+                    indices.push_back(i);
+                    return indices;
+                } else {
+                    // If no, then add current element to hashmap 
+                    // and move to next element
+                    nums_map[nums[i]] = i;
+                }
             }
         }
         return indices;
     }
 };
-
