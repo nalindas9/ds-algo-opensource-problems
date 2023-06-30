@@ -1,6 +1,8 @@
 # ds-algo-opensource-problems
 Just a repo for some DS ALGO problems and my solutions!
 
+[![Views](https://img.shields.io/github/views/nalindas9/your-repository.svg?style=for-the-badge)](https://github.com/nalindas9/ds-algo-opensource-problems)
+
 ![Python Version](https://img.shields.io/badge/C++-blue)
 ![Python Version](https://img.shields.io/badge/Javascript-yellow)
 ![Python Version](https://img.shields.io/badge/Python-green)
