@@ -1,0 +1,108 @@
+### Problem:
+You are given an integer array nums consisting of n elements, and an integer k.
+
+Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value.
+Any answer with a calculation error less than 10-5 will be accepted.
+
+ 
+
+Example 1:
+
+Input: nums = [1,12,-5,-6,50,3], k = 4
+Output: 12.75000
+Explanation: Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75
+Example 2:
+
+Input: nums = [5], k = 1
+Output: 5.00000
+ 
+
+Constraints:
+
+n == nums.length
+1 <= k <= n <= 105
+-104 <= nums[i] <= 104
+
+### Solution:
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function(nums, k) {
+    // Approach 2 time complexity - O(n) since
+    // reduce operation removed inside for loop
+    // Initialize left and right pointers for sliding window
+    let left = 0;
+    let right = k;
+    // Initialize max average value
+    let max_average = -Infinity;
+    let sub_array = nums.slice(left,right);
+    let sum = sub_array.reduce((a, b) => a+b, 0);
+    // Handle edge cases
+    if (nums.length == 0) {
+        return null;
+    }
+    if (nums.length == 1) {
+        return nums[0];
+    }
+    if (nums.length <= k) {
+        return sub_array.reduce((a, b) => a+b, 0)/k;
+    }
+    // Iterate through the array to calculate averages
+    // But this time just remove left element from sum 
+    // And add right element
+    // This would eliminate O(k) operation of adding
+    // all elements using reduce operation
+    for (let i=0; i<=(nums.length-k); i++) {
+        average = sum/k;
+    
+        if (average > max_average) {
+            max_average = average;
+        }
+        // Remove left element and add right element
+        sum-=nums[left];
+        sum+=nums[right];
+        // Increment left and right pointers
+        left+=1;
+        right+=1;
+    }
+    // Return max_average
+    return max_average;
+    
+    /*
+    // Approach 1 time complexity - O(n*k)
+    // Initialize left and right pointers for sliding window
+    let left = 0;
+    let right = k;
+    // Initialize max average value
+    let max_average = -Infinity;
+    let sub_array = nums;
+    let average = 0;
+    // Handle edge cases
+    if (nums.length == 0) {
+        return null;
+    }
+    if (nums.length == 1) {
+        return nums[0];
+    }
+    if (nums.length <= k) {
+        return sub_array.reduce((a, b) => a+b, 0)/k;
+    }
+    // Iterate through the array to calculate averages
+    for (let i=0; i<=(nums.length-k); i++) {
+        sub_array = nums.slice(left, right);
+        average = sub_array.reduce((a, b) => a+b, 0)/k;
+        
+        if (average > max_average) {
+            max_average = average;
+        }
+        
+        left+=1;
+        right+=1;
+    }
+    // Return max_average
+    return max_average;
+    */
+};
