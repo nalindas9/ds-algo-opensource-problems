@@ -1,0 +1,155 @@
+Problem:
+Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+
+ 
+
+Example 1:
+
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Output: 6
+Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+Example 2:
+
+Input: nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+Output: 10
+Explanation: [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+ 
+
+Constraints:
+
+1 <= nums.length <= 105
+nums[i] is either 0 or 1.
+0 <= k <= nums.length
+
+---------------------------------------------------------------------------------------------------------------------------------
+Solution:
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        // Approach 2 is to shorten the sliding 
+        // window when the no of flips == k
+        // In this case we reduce left by 1 and 
+        /*
+        [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1]
+         l 
+                 r
+         k = 3
+        */
+        int left = 0;
+        // max_ones array
+        int nums_ones = 0;
+        int max_nums_ones = 0;
+
+        // Increment right to expand window
+        for (int right = 0; right < nums.size(); right++) {
+            // if we encounter 0 as element, we decrement k as 
+            // k is max num of flips allowed in the window
+            if (nums[right] == 0)
+                k--;
+            // if num_flips becomes less then 0,
+            // it means that we have 
+            // encountered the limit for max
+            // num of flips in window
+            if (k < 0) {
+                // In this case we need
+                // contract the sliding 
+                // window by incrementing left
+                // k will also increase if element
+                // to be removed is 0 else
+                // dont increment k
+                if (nums[left] == 0)
+                    k++;   
+                left++;
+            }
+            
+            nums_ones = right - left + 1;
+            if (nums_ones > max_nums_ones)
+                max_nums_ones = nums_ones; 
+        }
+         return max_nums_ones;
+    };
+        
+        /*
+        Approach 1
+          We can use flexible sliding window
+          
+          Input: nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+          Output: 10
+          [0,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1]
+                                   [            ]
+          N = 5
+          
+          Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+          Output: 6
+          [1,1,1,0,0,0,1,1,1,1,0]
+          [ ]
+          N = 6
+          
+          [1,1,1,0,0,0,1,1,1,1,0]
+                   l
+                                r
+          Handle edge case when there are consecutive 0's at start
+          [0, 0, 0, 0, 1]
+          In this case 
+          before we initialized first_one to be 0
+          but we see that since the array is 0 indexed,
+          we need to set first_one to be -1 so that
+          the indexing is correct.
+           
+     
+        // Initialize left and right window panes
+        int left = 0; 
+        int right = 0;
+        // Initialize flips
+        int flips = 0;
+        // Initialize num_ones, max_num_ones and first_one
+        int max_num_ones = 0;
+        int num_ones = 0;
+        std::cout << "num_ones: " << num_ones << std::endl;
+        std::cout << "right: " << right << std::endl;
+        
+        // Iterate through the array
+        while (right < nums.size()) {
+            if (flips <= k) {
+            // If element is 1, then dont flip but count it
+            if (nums[right] == 1) {
+                num_ones += 1;
+                if (num_ones > max_num_ones) {
+                    max_num_ones = num_ones;
+                }
+            }
+            // else if element is 0, then check if either left or right elements
+            // are 1, if yes, then we extend it by flipping the 0
+            else {
+                if (right > 0 
+                    && right < nums.size() - 1 
+                    && (nums[right-1] == 1 
+                    || nums[right+1] == 1)
+                   ) {
+                    nums[right] = 1;
+                    num_ones += 1;
+                    flips += 1;
+                    if (num_ones > max_num_ones)
+                        max_num_ones = num_ones;
+                }
+            }
+                right += 1;
+                std::cout << "num_ones: " << num_ones << std::endl;
+                std::cout << "right: " << right << std::endl;
+        }
+            // Reset variables if flips = k
+            if (flips == k) {
+            num_ones = 0;
+            flips = 0;
+            // left resets to 1st one
+            left = right;
+        }
+            //std::cout << num_ones << std::endl;
+      }
+        return max_num_ones;
+    }
+       */
+};
