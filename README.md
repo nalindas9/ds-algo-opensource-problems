@@ -1,10 +1,12 @@
 # ds-algo-opensource-problems
 Just a repo for some DS ALGO problems and my solutions!
 
-![Python Version](https://img.shields.io/badge/C++-blue)
-![Python Version](https://img.shields.io/badge/Javascript-yellow)
-![Python Version](https://img.shields.io/badge/Java-white)
-![Python Version](https://img.shields.io/badge/Python-green)
+![Python](https://img.shields.io/badge/Python-white.svg?style=flat-square&logo=python&logoColor=blue)
+![Java](https://img.shields.io/badge/Java-white.svg?style=flat-square&logo=java&color=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-white.svg?style=flat-square&logo=javascript&logoColor=yellow)
+![C++](https://img.shields.io/badge/C++-white.svg?style=flat-square&logo=c%2B%2B&logoColor=blue)
+![Go](https://img.shields.io/badge/Golang-blue.svg?style=flat-square&logo=go&color=white)
+
 
 #### Contains the following problems (+other ones -> [here](https://github.com/nalindas9/ds-algo-opensource-problems/tree/main/problems)), feel free to check it out :D ->
 * ReverseString.txt
