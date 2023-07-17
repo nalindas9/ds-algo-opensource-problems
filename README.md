@@ -1,11 +1,11 @@
 # ds-algo-opensource-problems
 Just a repo for some DS ALGO problems and my solutions!
 
-![Python](https://img.shields.io/badge/Python-white.svg?style=flat-square&logo=python&logoColor=blue)
-![Java](https://img.shields.io/badge/Java-white.svg?style=flat-square&logo=java&color=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-white.svg?style=flat-square&logo=javascript&logoColor=yellow)
-![C++](https://img.shields.io/badge/C++-white.svg?style=flat-square&logo=c%2B%2B&logoColor=blue)
-![Go](https://img.shields.io/badge/Golang-blue.svg?style=flat-square&logo=go&color=white)
+![Python](https://img.shields.io/badge/Python-grey.svg?style=flat-square&logo=python&logoColor=blue)
+![Java](https://img.shields.io/badge/Java-grey.svg?style=flat-square&logo=java&color=grey)
+![JavaScript](https://img.shields.io/badge/JavaScript-grey.svg?style=flat-square&logo=javascript&logoColor=yellow)
+![C++](https://img.shields.io/badge/C++-grey.svg?style=flat-square&logo=c%2B%2B&logoColor=blue)
+![Go](https://img.shields.io/badge/Golang-grey.svg?style=flat-square&logo=go&color=grey)
 
 
 #### Contains the following problems (+other ones -> [here](https://github.com/nalindas9/ds-algo-opensource-problems/tree/main/problems)), feel free to check it out :D ->
