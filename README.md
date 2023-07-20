@@ -1,5 +1,5 @@
 # ds-algo-opensource-problems
-Just a repo for some DS ALGO problems and my solutions!
+Just a repo for some DS ALGO problems and my solutions.
 
 ![Python](https://img.shields.io/badge/Python-grey.svg?style=flat-square&logo=python&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-grey.svg?style=flat-square&logo=java&color=grey)
