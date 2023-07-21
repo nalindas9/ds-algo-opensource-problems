@@ -1,0 +1,61 @@
+## Problem:
+A pangram is a sentence where every letter of the English alphabet appears at least once.
+
+Given a string sentence containing only lowercase English letters, return true if sentence is a pangram, or false otherwise.
+
+ 
+
+Example 1:
+
+Input: sentence = "thequickbrownfoxjumpsoverthelazydog"
+Output: true
+Explanation: sentence contains at least one of every letter of the English alphabet.
+Example 2:
+
+Input: sentence = "leetcode"
+Output: false
+ 
+
+Constraints:
+
+1 <= sentence.length <= 1000
+sentence consists of lowercase English letters.
+
+## Solution:
+
+import java.util.*;
+
+class Solution {
+    public boolean checkIfPangram(String sentence) {
+        /*
+        Input: sentence = "thequickbrownfoxjumpsoverthelazydog"
+        Output: true
+        
+        - We can first create a Set
+        Then we can iterate through
+        the string and add each element to set
+        where each element will be unique
+        
+        - Then we can find the length the set
+        and check if its equal to 26
+        If yes, then its a pangram else no
+        
+        Time - O(n)
+        Space - O(n)
+        */
+        // First we create an empty mutable set
+        Set<Character> seen = new HashSet<>();
+        // Then Iterate through the string to
+        // check for each letter in the 
+        // English Alphabet
+        for (int i=0; i<sentence.length(); i++) {
+            // Check if letter has been seen
+            if (seen.contains(sentence.charAt(i)) != true)
+                seen.add(sentence.charAt(i));
+        }
+        // Check if length of seen == 26
+        if (seen.size() == 26)
+            return true;
+        return false;
+    }
+}
