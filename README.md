@@ -3,7 +3,7 @@ Just a repo for some DS ALGO problems and my solutions.
 
 ![Python](https://img.shields.io/badge/Python-grey.svg?style=flat-square&logo=python&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-grey.svg?style=flat-square&logo=java&color=grey)
-![JavaScript](https://img.shields.io/badge/JavaScript-grey.svg?style=flat-square&logo=javascript&logoColor=yellow)
+![JavaScript](https://img.shields.io/badge/JavaScript-grey.svg?style=flat-square&logo=javascript&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-grey.svg?style=flat-square&logo=c%2B%2B&logoColor=white)
 ![Go](https://img.shields.io/badge/Golang-grey.svg?style=flat-square&logo=go&color=grey&logoColor=white)
 
