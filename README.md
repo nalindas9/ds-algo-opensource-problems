@@ -10,7 +10,7 @@ Just a repo for some DS ALGO problems and my solutions.
 ## Sample Runtime Solution Distribution
 ![image](https://github.com/nalindas9/ds-algo-opensource-problems/assets/44141068/83f04c3a-af6c-4708-a0e6-47c1881b4c21)
 
-#### Contains the following problems (+other ones -> [here](https://github.com/nalindas9/ds-algo-opensource-problems/tree/main/problems)), feel free to check it out :D ->
+#### Contains the following problems (+other ones -> [here](https://github.com/nalindas9/ds-algo-opensource-problems/tree/main/problems)), feel free to check it out ->
 * ReverseString.txt
 * Update ReverseString.txt
 * Squares_of_a_Sorted_Array.txt
