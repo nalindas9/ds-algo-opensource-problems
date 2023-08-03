@@ -7,9 +7,6 @@ Just a repo for some Data Structures and Algorithms (DSA) problems and my soluti
 ![C++](https://img.shields.io/badge/C++-grey.svg?style=flat-square&logo=c%2B%2B&logoColor=white)
 ![Go](https://img.shields.io/badge/Golang-grey.svg?style=flat-square&logo=go&color=grey&logoColor=white)
 
-## Sample Runtime Solution Distribution
-![image](https://github.com/nalindas9/ds-algo-opensource-problems/assets/44141068/83f04c3a-af6c-4708-a0e6-47c1881b4c21)
-
 #### Contains the following problems (+other ones -> [here](https://github.com/nalindas9/ds-algo-opensource-problems/tree/main/problems)), feel free to check it out ->
 * ReverseString.txt
 * Update ReverseString.txt
