@@ -1,0 +1,155 @@
+## Problem
+Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
+
+You can use each character in text at most once. Return the maximum number of instances that can be formed.
+
+Example 1:
+Input: text = "nlaebolko"
+Output: 1
+Example 2:
+
+Input: text = "loonbalxballpoon"
+Output: 2
+Example 3:
+
+Input: text = "leetcode"
+Output: 0
+ 
+Constraints:
+
+1 <= text.length <= 104
+text consists of lower case English letters only.
+
+## Solution
+import "math"
+import "fmt"
+
+func findMinimumValue(values []int, freq_map map[string]int) int {
+    min_value := math.Inf(1)
+    fmt.Println(min_value)
+    if len(values) == 5 && freq_map["l"] >= 2 && freq_map["o"] >= 2 {
+        for _, value := range values {
+            if float64(value) < min_value {
+                min_value = float64(value)
+            }
+        }
+            fmt.Println(min_value) 
+    } else {
+        return 0
+    }
+    return int(min_value)
+}
+
+func maxNumberOfBalloons(text string) int {
+    /*
+    Input: text = "loonbalxballpoon"
+    Output: 2
+    
+    Approach 1:
+    "loonbalxballpoon"
+     ^
+     Maintain hashmap with character count
+     Ierate through text. Check frquency
+     of each element in balloon. 
+     If freq of each element n, return n
+     else return min frequency of any 1 element
+     
+     {
+        l:1,
+        o:4
+        b:2,
+        n:2,
+        a:2,
+        l:4,
+        x:1,
+        p:1,
+        n:1
+     }
+     
+     Balloon
+      another hashmap
+      check while iteratiung array
+      if element in both hashmaps
+     b1
+     a1
+     l2
+     o2
+     n1
+     [balloon]
+      Choose minimum freq char from balloon
+      that becomes num instances of balloon
+     Time - O(n)
+     Space - O(1)
+    */
+    // Approach 2
+    //     // Hashmap to store balloon
+    balloon_map := make(map[string]int)
+    balloon_map["b"] = 1
+    balloon_map["a"] = 1
+    balloon_map["l"] = 2
+    balloon_map["o"] = 2
+    balloon_map["n"] = 1
+    
+    // Hashmap to store frequency
+    freq_map := make(map[string]int)
+    // Iterate through array to store freqs
+    for i:=0; i<len(text); i++ {
+        // If element not in hashmap
+        // add it with value 1
+        // else increment the value
+        if _, found := balloon_map[string(text[i])]; found {
+            if _, found_ := freq_map[string(text[i])]; found_ {
+                freq_map[string(text[i])] = freq_map[string(text[i])] + 1
+            } else {
+                freq_map[string(text[i])] = 1
+            }
+        }
+    }
+    fmt.Println(freq_map)
+    
+    // Find minimum value in values array
+    // as this is the max num of instances
+    // We divide the freq map by baloon map
+    // To find the ratio and num instances of
+    //balloon
+    min_value := math.Inf(1)
+    for key, _ := range balloon_map {
+        if float64(freq_map[key]/balloon_map[key]) < min_value {
+            min_value = float64(freq_map[key]/balloon_map[key])
+        }
+    }
+    return int(min_value)
+    
+//     // Hashmap to store balloon
+//     balloon_map := make(map[string]string)
+//     balloon_map["b"] = "b"
+//     balloon_map["a"] = "a"
+//     balloon_map["l"] = "l"
+//     balloon_map["o"] = "o"
+//     balloon_map["n"] = "n"
+    
+//     // Hashmap to store frequency
+//     freq_map := make(map[string]int)
+//     // Iterate through array to store freqs
+//     for i:=0; i<len(text); i++ {
+//         // If element not in hashmap
+//         // add it with value 1
+//         // else increment the value
+//         if _, found := balloon_map[string(text[i])]; found {
+//             if _, found_ := freq_map[string(text[i])]; found_ {
+//                 freq_map[string(text[i])] = freq_map[string(text[i])] + 1
+//             } else {
+//                 freq_map[string(text[i])] = 1
+//             }
+//         }
+//     }
+//     fmt.Println(freq_map)
+//     // Get values arrray from hashmap
+//     var values []int
+//     for _, value := range freq_map {
+//         values = append(values, value)
+//     }
+//     fmt.Println(values)
+//     max_instances := findMinimumValue(values, freq_map)
+//     return max_instances
+}
