@@ -1,0 +1,116 @@
+## Problem
+
+Given a string s, find the length of the longest substring without repeating characters.
+
+ 
+
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+ 
+
+Constraints:
+
+0 <= s.length <= 5 * 104
+s consists of English letters, digits, symbols and spaces.
+
+## Solution
+import java.util.HashMap;
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        /*
+        Input: s = "abcabcbb"
+        Output: 3
+
+        Approach 1:
+        "abcabcbb"
+
+        We can use seen hashmap
+        to check if element seen or not,
+        if seen then reduce sliding window
+        from left and increment right
+
+        Keep longest substring count
+
+        Time - O(n)
+        Space - O(n)
+
+        "abcabcbb"
+           l r
+        {
+            a:a
+            b:b
+            c:c
+        }
+        Initialize left and right pointers
+        for sliding window
+        */
+        // Approach 2
+        // Initialize hashmap
+        HashMap<Character, Integer> seen_map = new HashMap<>();
+        // Initialize left pointer for sliding window
+        int left = 0;
+        // Intialize longest substr count
+        int longest_substr_count = 0;
+        // Iterate through string
+        for (int right = 0; right<s.length(); right++) {
+            // Fetch current char
+            char currentChar = s.charAt(right);
+            // Check if current element seen,
+            // if yes, update left till no
+            // more repeating characters
+            if (seen_map.containsKey(currentChar))
+                left = Math.max(left, seen_map.get(currentChar) + 1);
+            // Update seen_map with current char index
+            seen_map.put(currentChar, right);
+            // Check if current substr len
+            // is greater than longest substr count
+            // If yes, update the longest count
+            longest_substr_count = Math.max(longest_substr_count, right-left+1);
+        }
+        return longest_substr_count;
+       
+    //         // Initialize seen hashmap
+    //         HashMap<Character, Character> seen_map = new HashMap<>();
+    //         // Initialize left, right pointers
+    //         // for sliding window
+    //         int left = 0;
+    //         int right = 0;
+    //         // Initialize longest substr count
+    //         int longest_substr_count = 0;
+    //         // Iterate through the str
+    //         for (int i=0; i<s.length()-1; i++) {
+    //             // Check if current element is seen
+    //             // if yes, increment left to reduce window
+    //             // else if not seen, add to hashmap
+    //             if (seen_map.containsKey(s.charAt(right))) {
+    //                 left++;
+    //                 right++;
+    //             }
+    //             else {
+    //                 seen_map.put(s.charAt(right), s.charAt(right));
+    //                 right++;
+    //             }
+    //             // Check if current substr len
+    //             // greater than longest subtr count
+    //             // If yes, the assign value longest count
+    //             if (s.substring(left, right+1).length() >= longest_substr_count)
+    //                 longest_substr_count = s.substring(left, right+1).length()-1;
+    //         }
+    //         return longest_substr_count;
+    }
+}
