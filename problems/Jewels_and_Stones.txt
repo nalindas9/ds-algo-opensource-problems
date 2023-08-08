@@ -1,0 +1,61 @@
+## Problem
+You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
+
+Letters are case sensitive, so "a" is considered a different type of stone from "A".
+
+ 
+
+Example 1:
+
+Input: jewels = "aA", stones = "aAAbbbb"
+Output: 3
+Example 2:
+
+Input: jewels = "z", stones = "ZZ"
+Output: 0
+ 
+
+Constraints:
+
+1 <= jewels.length, stones.length <= 50
+jewels and stones consist of only English letters.
+All the characters of jewels are unique.
+
+## Solution
+class Solution:
+    def numJewelsInStones(self, jewels: str, stones: str) -> int:
+        """
+        Input: jewels = "aA", stones = "aAAbbbb"
+        Output: 3
+       
+        Approach 1:
+        1. "aA" "aAAbbbb"
+                 
+        Initialize count = 0
+        hashmap for jewels
+        {
+            a:a
+            A:A
+        }
+        Next iterate through stones
+        "aAAbbbb"
+         ^
+         if stone char in jewel, increment count
+         else move on
+         
+         Time - O(n)
+         Space - O(j) = O(1)
+        """
+        # Initialize count = 0
+        count = 0
+        # Hashmap for jewels
+        jewels_map = dict()
+        # Iterate jewels to fill map
+        for letter in jewels:
+            jewels_map[letter] = letter
+        # Now, Iterate through stones
+        for letter in stones:
+            if (letter in jewels_map.keys()):
+                # If letter in map, increment count
+                count += 1
+        return count
