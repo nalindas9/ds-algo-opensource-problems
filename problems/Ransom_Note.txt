@@ -1,0 +1,92 @@
+## Problem
+
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+
+ 
+
+Example 1:
+
+Input: ransomNote = "a", magazine = "b"
+Output: false
+Example 2:
+
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+Example 3:
+
+Input: ransomNote = "aa", magazine = "aab"
+Output: true
+ 
+
+Constraints:
+
+1 <= ransomNote.length, magazine.length <= 105
+ransomNote and magazine consist of lowercase English letters.
+
+## Solution
+#include <unordered_map>
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        /*
+        Input: ransomNote = "aa", magazine = "ab"
+        Output: false
+       
+        Approach 1:
+        "aa"
+        Iterate through ransomnote,
+        if same element exists in magazine,
+        remove it from magazine and move on.
+        If element cannot be found, then return false
+        "aab"
+       
+        Time - O(r+m)
+        Space - O(magazine len) = O(1)
+       
+        We can first use hashmap to count freq
+        of each element in magazine
+       
+        {
+            a:0,
+            b:1
+        }
+        "aa"
+          ^
+          return false
+        */
+        // Create hashmap to store magazine freqs
+        unordered_map<char, int> umap;
+        // Iterate through magazine
+        for (int i=0; i<magazine.size(); i++) {
+            // If element does exist,
+            // increment value by 1
+            // else add to map
+            if (umap.find(magazine[i]) != umap.end())
+                umap[magazine[i]] += 1;
+            else
+                umap[magazine[i]] = 1;
+        }
+       
+        // Iterate through ransomnote
+        for (int i=0; i<ransomNote.size(); i++) {
+            // Check if element in ransonNote exists
+            // in magazine and value != 0
+            //if yes, then decrement count
+            // If value = 0, that means element does
+            // not exist
+            // Return false then
+            if ((umap.find(ransomNote[i]) != umap.end()) && ransomNote[i] != 0) {
+                umap[ransomNote[i]] -= 1;
+                if (umap[ransomNote[i]] == 0)
+                    // Then remove the key
+                    umap.erase(ransomNote[i]);
+            }
+            else
+                return false;
+        }
+        return true;
+    }
+};
