@@ -1,0 +1,84 @@
+## Problem
+Reverse Linked list
+Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5], left = 2, right = 4
+Output: [1,4,3,2,5]
+Example 2:
+
+Input: head = [5], left = 1, right = 1
+Output: [5]
+ 
+
+Constraints:
+
+The number of nodes in the list is n.
+1 <= n <= 500
+-500 <= Node.val <= 500
+1 <= left <= right <= n
+ 
+
+Follow up: Could you do it in one pass?
+
+## Solution:
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+import "fmt"
+
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+    /*
+    Input: head = [1,2,3,4,5], left = 2, right = 4
+    Output: [1,4,3,2,5]
+   
+    Approach 1:
+    1. [1,2,3,4,5]
+          ^
+    Store all elements in
+    array and then perform the swaps
+   
+    Time - O(n)
+    Space - O(n)
+    */
+    // Convert linked list to a slice for processing
+    var elements []int
+    current := head
+    for current != nil {
+        elements = append(elements, current.Val)
+        current = current.Next
+    }
+
+    // Edge cases
+    if len(elements) <= 1 {
+        return head
+    }
+
+    // Swap elements in the slice
+    for i := left - 1; i < (left+right)/2; i++ {
+        j := left + right - 2 - i
+        elements[i], elements[j] = elements[j], elements[i]
+    }
+
+    // Update linked list values using modified slice
+    current = head
+    count := 0
+    for current != nil {
+        count++
+        if count >= left && count <= right {
+            current.Val = elements[count-1]
+        }
+        current = current.Next
+    }
+
+    return head
+}
