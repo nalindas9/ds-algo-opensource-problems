@@ -1,0 +1,72 @@
+## Problem
+Given a binary tree, find its minimum depth.
+
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+Note: A leaf is a node with no children.
+
+ 
+
+Example 1:
+
+
+Input: root = [3,9,20,null,null,15,7]
+Output: 2
+Example 2:
+
+Input: root = [2,null,3,null,4,null,5,null,6]
+Output: 5
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 105].
+-1000 <= Node.val <= 1000
+
+## Solution:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int minDepth(TreeNode root) {
+        /*
+        Input: root = [3,9,20,null,null,15,7]
+        Output: 2
+        
+        Approach 1:
+        1. We can use recursive DFS to traverse BT
+        2. We can keep var for minimum depth
+        3. If we find depth , minimum depth, that becomes new
+        minimum depth
+        
+        Time - O(n)
+        Space - O(1)
+        */
+        // Add base conditions
+        if (root == null)
+            return 0;
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        // If left subtree null, consider only right and vice versa
+        if (left == null)
+            return minDepth(right) + 1;
+        if (right == null)
+            return minDepth(left) + 1;
+        int left_min_depth = minDepth(left);
+        int right_min_depth = minDepth(right);
+        return Math.min(left_min_depth, right_min_depth) + 1;
+    }
+}
