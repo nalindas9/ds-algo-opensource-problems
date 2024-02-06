@@ -1,0 +1,107 @@
+## Problem
+You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
+
+Return the number of connected components in the graph.
+
+ 
+
+Example 1:
+
+
+Input: n = 5, edges = [[0,1],[1,2],[3,4]]
+Output: 2
+Example 2:
+
+
+Input: n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]
+Output: 1
+ 
+
+Constraints:
+
+1 <= n <= 2000
+1 <= edges.length <= 5000
+edges[i].length == 2
+0 <= ai <= bi < n
+ai != bi
+There are no repeated edges.
+
+## Solution
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        """
+        Input: n = 5, edges = [[0,1],[1,2],[3,4]]
+        Output: 2
+        
+        Approach 1:
+        1. Iterate through the edges list
+        2. Keep a component count variable. Increment it when
+        having reached end of the component.
+        
+        [[0,1],[1,2],[3,4]]
+                            ^
+         component_count = 2
+         
+        3. Finally return the count
+        
+        Time - O(n)
+        Space - O(1)
+        
+        Issue with this solution is that
+        it does not consider non linear
+        component connections
+        
+        To solve this, we can check if any element is
+        common between any two edges
+        
+        For this, we can keep a visit hashmap
+        For each element, if element is seen before,
+        it means there is a connection else we increment
+        count
+        
+        
+        component_count = 0
+        visited_nodes = dict()
+        # Iterate through edges
+        for i in range(len(edges)):
+            seen = False
+            for j in range(len(edges[i])):
+                # Check if any element is not seen before
+                if edges[i][j] in visited_nodes:
+                    seen = True
+                else:
+                    visited_nodes[edges[i][j]] = 1
+            if not seen:
+                component_count += 1
+        return component_count
+        """
+        # Helper function for depth-first search
+        def dfs(node):
+            # Mark the node as visited
+            visited.add(node)
+            # Visit all the neighbours of the node
+            for neighbour in graph[node]:
+                if neighbour not in visited:
+                    dfs(neighbour)
+
+        # Initialize an empty adjacency list for each node
+        graph = {x: [] for x in range(n)}
+        # Populate the adjacency list
+        for edge in edges:
+            graph[edge[0]].append(edge[1])
+            graph[edge[1]].append(edge[0])
+
+        # Initialize an empty set to keep track of visited nodes
+        visited = set()
+        # Initialize the component count to 0
+        component_count = 0
+
+        # Perform a DFS starting from each unvisited node
+        for node in range(n):
+            if node not in visited:
+                dfs(node)
+                # Increment the component count for each DFS call
+                component_count += 1
+
+        # Return the total number of components
+        return component_count
