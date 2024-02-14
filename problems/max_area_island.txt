@@ -1,0 +1,75 @@
+## Problem
+You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+ 
+
+Example 1:
+
+
+Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+Output: 6
+Explanation: The answer is not 11, because the island must be connected 4-directionally.
+Example 2:
+
+Input: grid = [[0,0,0,0,0,0,0,0]]
+Output: 0
+ 
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 50
+grid[i][j] is either 0 or 1.
+
+## Solution
+
+class Solution {
+    // DFS function
+    public int dfs(int i, int j, int[][] grid) {
+        // Base case: Out of bounds or visited cell
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == 0)
+            return 0;
+        // Mark current cell as visited
+        grid[i][j] = 0;
+        // Increment area when exploring neighbors
+        int area = 1;
+        // Recursively explore in all four directions
+        area += dfs(i - 1, j, grid); // Up
+        area += dfs(i, j + 1, grid); // Right
+        area += dfs(i + 1, j, grid); // Down
+        area += dfs(i, j - 1, grid); // Left
+
+        return area;
+    }
+    public int maxAreaOfIsland(int[][] grid) {
+        /*
+            Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+    Output: 6
+    Explanation: The answer is not 11, because the island must be connected 4-directionally.
+    
+    Approach 1:
+    1. Iterate through grid. 
+    2. Run DFS, when 1 is encountered.
+    3. Keep max area variable and update it only when
+    dfs result is greater than previous max
+        */
+        int max_area = 0;
+        // Iterate through grid
+        for (int i=0; i<grid.length; i++) {
+            for (int j=0; j<grid[i].length; j++) {
+                // If cell value is 1, run DFS
+                if (grid[i][j] == 1) {
+                    int area = dfs(i, j, grid);
+                    if (area > max_area)
+                        max_area = area;
+                }
+            }
+        }
+        return max_area;
+    }
+}
