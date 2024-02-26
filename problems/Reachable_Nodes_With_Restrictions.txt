@@ -44,16 +44,22 @@ All the values of restricted are unique.
 class Solution {
 public:
     int reachableNodes(int n, vector<vector<int>>& edges, vector<int>& restricted) {
+        // Create an adjacency matrix to represent the graph
         std::unordered_map<int, std::vector<int>> adj_matrix; 
+        // Convert the restricted vector to a set for faster lookup
         std::unordered_set<int> restricted_set(restricted.begin(), restricted.end());
         
+        // Populate the adjacency matrix
         for (auto& edge : edges) {
             adj_matrix[edge[0]].push_back(edge[1]);
             adj_matrix[edge[1]].push_back(edge[0]);
         }
         
+        // Stack for DFS traversal
         std::stack<int> dfs_stack;
+        // Set to keep track of visited nodes
         std::unordered_set<int> visited;
+        // Start DFS from node 0
         dfs_stack.push(0);
         
         int reachable_nodes_cnt = 0;
@@ -61,10 +67,14 @@ public:
             int node = dfs_stack.top();
             dfs_stack.pop();
             
+            // If the node has not been visited and is not restricted
             if (visited.count(node) == 0 && restricted_set.count(node) == 0) {
+                // Increment the count of reachable nodes
                 reachable_nodes_cnt++;
+                // Mark the node as visited
                 visited.insert(node);
                 
+                // Add all unvisited neighbors to the stack
                 for (auto& neighbor : adj_matrix[node]) {
                     if (visited.count(neighbor) == 0) {
                         dfs_stack.push(neighbor);
@@ -73,6 +83,7 @@ public:
             }
         }
         
+        // Return the count of reachable nodes
         return reachable_nodes_cnt;
     }
 };
