@@ -1,0 +1,144 @@
+## Problem
+There is an undirected tree with n nodes labeled from 0 to n - 1 and n - 1 edges.
+
+You are given a 2D integer array edges of length n - 1 where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree. You are also given an integer array restricted which represents restricted nodes.
+
+Return the maximum number of nodes you can reach from node 0 without visiting a restricted node.
+
+Note that node 0 will not be a restricted node.
+
+ 
+
+Example 1:
+
+
+Input: n = 7, edges = [[0,1],[1,2],[3,1],[4,0],[0,5],[5,6]], restricted = [4,5]
+Output: 4
+Explanation: The diagram above shows the tree.
+We have that [0,1,2,3] are the only nodes that can be reached from node 0 without visiting a restricted node.
+Example 2:
+
+
+Input: n = 7, edges = [[0,1],[0,2],[0,5],[0,4],[3,2],[6,5]], restricted = [4,2,1]
+Output: 3
+Explanation: The diagram above shows the tree.
+We have that [0,5,6] are the only nodes that can be reached from node 0 without visiting a restricted node.
+ 
+
+Constraints:
+
+2 <= n <= 105
+edges.length == n - 1
+edges[i].length == 2
+0 <= ai, bi < n
+ai != bi
+edges represents a valid tree.
+1 <= restricted.length < n
+1 <= restricted[i] < n
+All the values of restricted are unique.
+
+## Solution
+#include <unordered_map>
+#include <unordered_set>
+
+class Solution {
+public:
+    int reachableNodes(int n, vector<vector<int>>& edges, vector<int>& restricted) {
+        std::unordered_map<int, std::vector<int>> adj_matrix; 
+        std::unordered_set<int> restricted_set(restricted.begin(), restricted.end());
+        
+        for (auto& edge : edges) {
+            adj_matrix[edge[0]].push_back(edge[1]);
+            adj_matrix[edge[1]].push_back(edge[0]);
+        }
+        
+        std::stack<int> dfs_stack;
+        std::unordered_set<int> visited;
+        dfs_stack.push(0);
+        
+        int reachable_nodes_cnt = 0;
+        while (!dfs_stack.empty()) {
+            int node = dfs_stack.top();
+            dfs_stack.pop();
+            
+            if (visited.count(node) == 0 && restricted_set.count(node) == 0) {
+                reachable_nodes_cnt++;
+                visited.insert(node);
+                
+                for (auto& neighbor : adj_matrix[node]) {
+                    if (visited.count(neighbor) == 0) {
+                        dfs_stack.push(neighbor);
+                    }
+                }
+            }
+        }
+        
+        return reachable_nodes_cnt;
+    }
+};
+
+// #include <unordered_map>
+
+// class Solution {
+// public:
+    
+//     int DFS(std::unordered_map<int, std::vector<int>> &adj_matrix, 
+//             std::unordered_map<int, int> &restricted_map, 
+//             int node_num) {
+//         // Define base case when leaf node reached
+//         if (adj_matrix[node_num].size() == 0)
+//             return 0;
+//         // DFS on all child nodes
+//         int reachable_nodes_cnt = 1;
+//         for (int i=0; i<adj_matrix[node_num].size(); i++) {
+//             // Check if node is not restricted, then run dfs on it.
+//             if (restricted_map.count(adj_matrix[node_num][i]) == 0) {
+//                 reachable_nodes_cnt += DFS(adj_matrix, restricted_map, adj_matrix[node_num][i]);
+//             }
+//         }
+//         return reachable_nodes_cnt;
+//     }
+
+//     std::unordered_map<int, std::vector<int>> edgesToAdjacency(
+//         std::vector<std::vector<int>> &edges
+//     ) {
+//         std::unordered_map<int, std::vector<int>> adj_matrix; 
+//         // Loop through edges
+//         for (int i=0; i<edges.size(); i++) {
+//             adj_matrix[edges[i][0]].push_back(edges[i][1]);
+//             adj_matrix[edges[i][1]].push_back(edges[i][0]);
+//         }
+//         return adj_matrix;
+//     }
+//     int reachableNodes(int n, vector<vector<int>>& edges, vector<int>& restricted) {
+//         /*
+//         Input: n = 7, edges = [[0,1],[1,2],[3,1],[4,0],[0,5],[5,6]], restricted = [4,5]
+//         Output: 4
+//         Explanation: The diagram above shows the tree.
+//         We have that [0,1,2,3] are the only nodes that can be reached from node 0 without visiting a restricted node.
+//         Approach 1:
+//         1. Since given input is not a grid, but a list of edges,
+//         we have to convert it to an adjacency matrix.
+//         2. Run DFS on the graph.
+//         3. If current node is restricted, return 0. 
+//         4. For other cases, return 1
+        
+//         Time - O(N+E)
+//         space - O(n)
+//         */
+//         // Convert edges to adjacency matrix
+//         std::unordered_map<int, std::vector<int>> adj_matrix = edgesToAdjacency(
+//             edges
+//         );
+//         // Convert resticted vector to hashmap
+//         std::unordered_map<int, int> restricted_map;
+//         for (int i=0; i<restricted.size(); i++) {
+//             restricted_map[restricted[i]] = restricted[i];
+//         }
+//         // Run DFS on the adj matrix
+//         int max_visited_nodes = DFS(adj_matrix, 
+//                                     restricted_map, 
+//                                     0);
+//         return max_visited_nodes;
+//     }
+// };
