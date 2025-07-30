@@ -7,6 +7,8 @@ Just a repo for some Data Structures and Algorithms (DSA) problems and my soluti
 ![C++](https://img.shields.io/badge/C++-grey.svg?style=flat-square&logo=c%2B%2B&logoColor=white)
 ![Go](https://img.shields.io/badge/Golang-grey.svg?style=flat-square&logo=go&color=grey&logoColor=white)
 ![MySQL](https://img.shields.io/badge/SQL-grey.svg?style=flat-square&logo=mysql&color=grey&logoColor=white)
+![React](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&style=flat-square&color=grey&logoColor=white)
+
 
 #### Contains the following problems (+other ones -> [here](https://github.com/nalindas9/ds-algo-opensource-problems/tree/main/problems)), feel free to check it out ->
 * ReverseString.txt
