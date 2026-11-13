@@ -1,0 +1,38 @@
+"""
+1. Iterate through array
+2. Sort array before iterating
+3. Keep a count vsariable
+4. Store frequency of element encountered till now.
+5. If the frequency is higher than previous frequency than 
+update to the most recent frequency.. Frequency is stored in hashmap.
+
+Time complexity - O(n)
+Space complexity - O(n)
+
+"""
+
+class Solution(object):
+    def findLucky(self, arr):
+        """
+        :type arr: List[int]
+        :rtype: int
+        """
+        hash_map = dict()
+        # Iterate through the array
+        for i in range(len(arr)):
+            # Store frequency of element in the array
+            if arr[i] not in hash_map:
+                hash_map[arr[i]] = 1
+            else:
+                hash_map[arr[i]] += 1
+        lucky_numbers = list()
+        # Iterate through the array
+        for i in range(len(arr)):
+            # If element == freq_of_element
+            if hash_map[arr[i]] == arr[i]:
+                # Lucky number
+                lucky_numbers.append(arr[i])
+        if len(lucky_numbers) == 0:
+            return -1
+        else:
+            return max(lucky_numbers)
