@@ -1,0 +1,20 @@
+"""
+optimized solutionion:
+1. keep count var
+2. iterate through array
+3. increement ocount var only when  non valelemdnt in the list
+
+Time complexity - O(n)
+Sapce complexity - O(1)
+
+"""
+
+class Solution:
+    def removeElement(self, nums: list[int], val: int) -> int:
+        output = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                output += 1
+        return output
+                
+        
