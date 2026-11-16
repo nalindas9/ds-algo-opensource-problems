@@ -1,0 +1,57 @@
+"""
+optimized solution:
+1. initialize hashmap with letters and there positional encoding
+2. convert string to encoded vals
+3. transform vals to output int
+4. secondary higher order transform 
+
+Time complexity - O(n+m*k)
+Space complexity - O(1)
+"""
+
+class Solution:
+    def transform(self, sum_str: str):
+        sum = 0
+        for i in range(len(sum_str)):
+            sum += int(sum_str[i])
+        return sum
+            
+    def getLucky(self, s: str, k: int) -> int:
+        alphamap = {'a': 1,
+                    'b': 2,
+                    'c': 3,
+                    'd': 4,
+                    'e': 5,
+                    'f': 6,
+                    'g': 7,
+                    'h': 8,
+                    'i': 9,
+                    'j': 10,
+                    'k': 11,
+                    'l': 12,
+                    'm': 13,
+                    'n': 14,
+                    'o': 15,
+                    'p': 16,
+                    'q': 17,
+                    'r': 18,
+                    's': 19,
+                    't': 20,
+                    'u': 21,
+                    'v': 22,
+                    'w': 23,
+                    'x': 24,
+                    'y': 25,
+                    'z': 26}
+        encoding = list()
+        # Covert to encoded vals
+        for i in range(len(s)):
+            encoding.append(str(alphamap[s[i]]))
+        encodingstr = ''.join(encoding)
+        # transformation
+        for i in range(k):
+            sum = self.transform(encodingstr)
+            encoding_str = str(sum)
+        return int(encoding_str)
+        return final
+                    
