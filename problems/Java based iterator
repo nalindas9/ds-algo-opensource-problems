@@ -1,0 +1,10 @@
+/*
+optimized solution:
+1. find unique elements by maintaining hashmap
+2. add up the unique elements
+
+Time complexity - O(n)
+Space complexity - O(n)
+
+*/
+import java.util.HashMap;
