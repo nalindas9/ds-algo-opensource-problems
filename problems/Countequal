@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int countPairs(vector<int>& nums, int k) {
+        // Hashmap
+        std::unordered_map<int, int> arr_map = {};
+        for (int i = 0; i < nums.size; i++) {
+            //in progess
+        }
+    }
+};
