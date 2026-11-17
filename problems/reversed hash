@@ -1,0 +1,19 @@
+"""
+optimize solution:
+
+1. reverse string and check if same
+Time complexity - O(n)
+Space complexity - O(1)
+"""
+
+class Solution:
+    def reverseString(self, x_str: str) -> str:
+        reversed = list()
+        x_str = list(x_str)
+        for i in range(len(x_str)):
+            reversed.append(x_str[len(x_str)-1- i])
+        return ''.join(reversed)
+        
+    def isPalindrome(self, x: int) -> bool:
+        return str(x) == self.reverseString(str(x))
+            
